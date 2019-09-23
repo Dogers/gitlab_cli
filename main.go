@@ -78,6 +78,7 @@ func main() {
 			os.Exit(0)
 		case "listusers":
 			getSubGroups(gitlabClient, masterGroupID)
+		case "":
 		default:
 			fmt.Fprintf(os.Stdout, "Unknown command: '%s'\n", command)
 			fmt.Println("Type 'help' for available commands")
