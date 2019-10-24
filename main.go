@@ -1,7 +1,7 @@
 package main
 
 import (
-	"./cmd"
+	"github.com/Dogers/gitlab_cli/cmd"
 )
 
 func main() {
