@@ -2,8 +2,9 @@ package cmd
 
 import (
 	"fmt"
-	"github.com/spf13/cobra"
 	"os"
+
+	"github.com/spf13/cobra"
 )
 
 var masterGID int
@@ -18,7 +19,6 @@ Just provide an API token and a group ID to start from.`,
 	// has an action associated with it:
 	//	Run: func(cmd *cobra.Command, args []string) { },
 }
-
 
 func Execute() {
 	if err := rootCmd.Execute(); err != nil {

@@ -2,13 +2,13 @@ package cmd
 
 import (
 	"fmt"
-	"github.com/xanzy/go-gitlab"
 	"log"
 	"os"
 	"strings"
 	"text/tabwriter"
 
 	"github.com/spf13/cobra"
+	"github.com/xanzy/go-gitlab"
 )
 
 var listMembersCmd = &cobra.Command{
