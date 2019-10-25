@@ -5,6 +5,7 @@ import (
 	"github.com/xanzy/go-gitlab"
 	"log"
 	"os"
+	"strings"
 	"text/tabwriter"
 
 	"github.com/spf13/cobra"
@@ -23,6 +24,9 @@ Inherited users are not displayed.`,
 		groups, _, err := gitlabClient.Groups.ListSubgroups(masterGID, lSGOpts)
 
 		if err != nil {
+			if strings.Contains(err.Error(), ": 40") {
+				log.Fatal("Invalid token, please check and retry")
+			}
 			log.Fatalf("Error: %o", err)
 		}
 
