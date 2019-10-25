@@ -10,7 +10,6 @@ import (
 	"github.com/spf13/cobra"
 )
 
-// groupsCmd represents the groups command
 var listMembersCmd = &cobra.Command{
 	Use:   "list-members",
 	Short: "Lists members of subgroups",
