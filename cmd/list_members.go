@@ -20,7 +20,7 @@ Inherited users are not displayed.`,
 		gitlabClient := gitlab.NewClient(nil, gitlabToken)
 
 		lSGOpts := &gitlab.ListSubgroupsOptions{}
-		groups, _, err := gitlabClient.Groups.ListSubgroups(rootCmd.Flag("gid"), lSGOpts)
+		groups, _, err := gitlabClient.Groups.ListSubgroups(masterGID, lSGOpts)
 
 		if err != nil {
 			log.Fatalf("Error: %o", err)
