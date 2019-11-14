@@ -42,6 +42,9 @@ var listProjectsCmd = &cobra.Command{
 				getProjectsInGroup(gitlabClient, subg)
 			}
 		}
+		// Also need the group itself
+		group, _, err := gitlabClient.Groups.GetGroup(masterGID)
+		getProjectsInGroup(gitlabClient, group)
 	},
 }
 
