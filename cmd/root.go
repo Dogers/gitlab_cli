@@ -1,6 +1,8 @@
 package cmd
 
 import (
+	"encoding/csv"
+	"encoding/json"
 	"fmt"
 	"os"
 	"text/tabwriter"
@@ -50,22 +52,34 @@ func printOut(intro string, groupPath string, fmtString string, outVars []string
 	switch outputType {
 		case "default":
 			// Print plain text
-			w := tabwriter.NewWriter(os.Stdout, 0, 0, 3, ' ', 0)
+			tabs := tabwriter.NewWriter(os.Stdout, 0, 0, 3, ' ', 0)
+			defer tabs.Flush()
 			fmt.Println(intro, groupPath)
 
 			for _, item := range outVars {
-				_, _ = fmt.Fprintf(w, fmtString, item)
+				_, _ = fmt.Fprintf(tabs, fmtString, item)
 			}
 
-			_ = w.Flush()
 			fmt.Println("")
 
 		case "json":
 			// Print JSON
 			// https://blog.golang.org/json-and-go
+			jsonout := json.NewEncoder(os.Stdout)
+			for _, item := range outVars {
+				_ = jsonout.Encode([]string{groupPath, item})
+			}
+
 		case "csv":
 			// Print CSV
 			// https://golangcode.com/write-data-to-a-csv-file/
+			csvout := csv.NewWriter(os.Stdout)
+			defer csvout.Flush()
+
+			for _, item := range outVars{
+				_ = csvout.Write([]string{groupPath, item})
+			}
+
 		default:
 			// Fix illiteracy, redirect to default
 			outputType = "default"
