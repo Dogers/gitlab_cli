@@ -89,8 +89,8 @@ func main() {
 
 func printMenu() {
 	// TODO: can this be auto generated somehow?
-	fmt.Println("GitLab CLI")
-	fmt.Println("----------")
-	fmt.Println()
-	fmt.Println()
+	fmt.Println("---- [ GitLab CLI Commands]----")
+	fmt.Println("listusers - list all users set on subgroups")
+	fmt.Println("help - this info")
+	fmt.Println("exit - quit the program")
 }
