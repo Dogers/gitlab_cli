@@ -71,7 +71,7 @@ func getMembersOfGroup(git *gitlab.Client, group *gitlab.Group) {
 
 	if len(groupMembers) > 0 {
 		w := tabwriter.NewWriter(os.Stdout, 0, 0, 3, ' ', 0)
-		fmt.Println("Members found for group:", group.Name)
+		fmt.Println("Members found for group:", group.FullPath)
 
 		for _, gMember := range groupMembers {
 			_, _ = fmt.Fprintf(w, "\t%s\t%s\t%s\n", gMember.Name, gMember.Username, levelToPerm(gMember.AccessLevel))

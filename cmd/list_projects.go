@@ -73,7 +73,7 @@ func getProjectsInGroup(git *gitlab.Client, group *gitlab.Group) {
 
 	if len(groupProjects) > 0 {
 		w := tabwriter.NewWriter(os.Stdout, 0, 0, 3, ' ', 0)
-		fmt.Println("Projects found for group:", group.Name)
+		fmt.Println("Projects found for group:", group.FullPath)
 
 		for _, gProject := range groupProjects {
 			_, _ = fmt.Fprintf(w, "\t%s\n", gProject.Name)
