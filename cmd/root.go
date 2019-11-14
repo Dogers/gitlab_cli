@@ -62,8 +62,10 @@ func printOut(intro string, groupPath string, fmtString string, outVars []string
 
 		case "json":
 			// Print JSON
+			// https://blog.golang.org/json-and-go
 		case "csv":
 			// Print CSV
+			// https://golangcode.com/write-data-to-a-csv-file/
 		default:
 			// Fix illiteracy, redirect to default
 			outputType = "default"
