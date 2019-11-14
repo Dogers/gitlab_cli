@@ -3,12 +3,14 @@ package cmd
 import (
 	"fmt"
 	"os"
+	"text/tabwriter"
 
 	"github.com/spf13/cobra"
 )
 
 var masterGID int
 var gitlabToken string
+var outputType string
 
 var rootCmd = &cobra.Command{
 	Use:   "gitlab_cli",
@@ -37,6 +39,34 @@ func init() {
 	// when this action is called directly.
 	rootCmd.PersistentFlags().IntVarP(&masterGID, "gid", "g", -1, "The topmost group ID to recurse from")
 	_ = rootCmd.MarkPersistentFlagRequired("gid")
+
 	rootCmd.PersistentFlags().StringVarP(&gitlabToken, "token", "t", "", "A valid token for accessing the GitLab API")
 	_ = rootCmd.MarkPersistentFlagRequired("token")
+
+	rootCmd.PersistentFlags().StringVarP(&outputType, "output", "o", "default", "Output format for results, valid options are default, csv and json")
+}
+
+func printOut(intro string, groupPath string, fmtString string, outVars []string) {
+	switch outputType {
+		case "default":
+			// Print plain text
+			w := tabwriter.NewWriter(os.Stdout, 0, 0, 3, ' ', 0)
+			fmt.Println(intro, groupPath)
+
+			for _, item := range outVars {
+				_, _ = fmt.Fprintf(w, fmtString, item)
+			}
+
+			_ = w.Flush()
+			fmt.Println("")
+
+		case "json":
+			// Print JSON
+		case "csv":
+			// Print CSV
+		default:
+			// Fix illiteracy, redirect to default
+			outputType = "default"
+			printOut(intro, groupPath, fmtString, outVars)
+	}
 }

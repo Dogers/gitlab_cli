@@ -1,11 +1,8 @@
 package cmd
 
 import (
-	"fmt"
 	"log"
-	"os"
 	"strings"
-	"text/tabwriter"
 
 	"github.com/spf13/cobra"
 	"github.com/xanzy/go-gitlab"
@@ -72,14 +69,12 @@ func getProjectsInGroup(git *gitlab.Client, group *gitlab.Group) {
 	}
 
 	if len(groupProjects) > 0 {
-		w := tabwriter.NewWriter(os.Stdout, 0, 0, 3, ' ', 0)
-		fmt.Println("Projects found for group:", group.FullPath)
+		vars := []string{}
 
 		for _, gProject := range groupProjects {
-			_, _ = fmt.Fprintf(w, "\t%s\n", gProject.Name)
+			vars = append(vars, gProject.Name)
 		}
 
-		_ = w.Flush()
-		fmt.Println("")
+		printOut("Projects found for group: ", group.FullPath, "\t%s\n", vars)
 	}
 }
