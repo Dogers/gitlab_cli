@@ -45,23 +45,11 @@ func init() {
 	rootCmd.PersistentFlags().StringVarP(&gitlabToken, "token", "t", "", "A valid token for accessing the GitLab API")
 	_ = rootCmd.MarkPersistentFlagRequired("token")
 
-	rootCmd.PersistentFlags().StringVarP(&outputType, "output", "o", "default", "Output format for results, valid options are default, csv and json")
+	rootCmd.PersistentFlags().StringVarP(&outputType, "output", "o", "text", "Output format for results, valid options are text, csv and json")
 }
 
 func printOut(intro string, groupPath string, fmtString string, itemType string, outVars []string) {
 	switch outputType {
-		case "default":
-			// Print plain text
-			tabs := tabwriter.NewWriter(os.Stdout, 0, 0, 3, ' ', 0)
-			defer tabs.Flush()
-			fmt.Println(intro, groupPath)
-
-			for _, item := range outVars {
-				_, _ = fmt.Fprintf(tabs, fmtString, item)
-			}
-
-			fmt.Println("")
-
 		case "json":
 			// Print JSON
 			// https://blog.golang.org/json-and-go
@@ -83,7 +71,15 @@ func printOut(intro string, groupPath string, fmtString string, itemType string,
 
 		default:
 			// Fix illiteracy, redirect to default
-			outputType = "default"
-			printOut(intro, groupPath, fmtString, outVars)
+			// Print plain text
+			tabs := tabwriter.NewWriter(os.Stdout, 0, 0, 3, ' ', 0)
+			defer tabs.Flush()
+			fmt.Println(intro, groupPath)
+
+			for _, item := range outVars {
+				_, _ = fmt.Fprintf(tabs, fmtString, item)
+			}
+
+			fmt.Println("")
 	}
 }
