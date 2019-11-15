@@ -1,14 +1,10 @@
 package cmd
 
 import (
-	"fmt"
-	"log"
-	"os"
-	"strings"
-	"text/tabwriter"
-
 	"github.com/spf13/cobra"
 	"github.com/xanzy/go-gitlab"
+	"log"
+	"strings"
 )
 
 var listMembersCmd = &cobra.Command{
@@ -70,14 +66,15 @@ func getMembersOfGroup(git *gitlab.Client, group *gitlab.Group) {
 	}
 
 	if len(groupMembers) > 0 {
-		w := tabwriter.NewWriter(os.Stdout, 0, 0, 3, ' ', 0)
-		fmt.Println("Members found for group:", group.FullPath)
+		vars := []string{}
 
 		for _, gMember := range groupMembers {
-			_, _ = fmt.Fprintf(w, "\t%s\t%s\t%s\n", gMember.Name, gMember.Username, levelToPerm(gMember.AccessLevel))
+			vars = append(vars, gMember.Name)
+			vars = append(vars, gMember.Username)
+			vars = append(vars, levelToPerm(gMember.AccessLevel))
 		}
 
-		_ = w.Flush()
-		fmt.Println("")
+		// TODO: this won't work - each item (name, username, level) will be a new line!
+		printOut("Members found for group: ", group.FullPath, "\t%s\t%s\t%s\n", "users", vars)
 	}
 }
