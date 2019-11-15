@@ -75,6 +75,6 @@ func getProjectsInGroup(git *gitlab.Client, group *gitlab.Group) {
 			vars = append(vars, gProject.Name)
 		}
 
-		printOut("Projects found for group: ", group.FullPath, "\t%s\n", "project", vars)
+		Printout("Projects found for group: ", group.FullPath, "\t%s\n", "project", vars)
 	}
 }

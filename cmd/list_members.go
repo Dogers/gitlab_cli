@@ -75,6 +75,6 @@ func getMembersOfGroup(git *gitlab.Client, group *gitlab.Group) {
 		}
 
 		// TODO: this won't work - each item (name, username, level) will be a new line!
-		printOut("Members found for group: ", group.FullPath, "\t%s\t%s\t%s\n", "users", vars)
+		Printout("Members found for group: ", group.FullPath, "\t%s\t%s\t%s\n", "users", vars)
 	}
 }
