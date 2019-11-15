@@ -48,7 +48,7 @@ func init() {
 	rootCmd.PersistentFlags().StringVarP(&outputType, "output", "o", "default", "Output format for results, valid options are default, csv and json")
 }
 
-func printOut(intro string, groupPath string, fmtString string, outVars []string) {
+func printOut(intro string, groupPath string, fmtString string, itemType string, outVars []string) {
 	switch outputType {
 		case "default":
 			// Print plain text
@@ -76,6 +76,7 @@ func printOut(intro string, groupPath string, fmtString string, outVars []string
 			csvout := csv.NewWriter(os.Stdout)
 			defer csvout.Flush()
 
+			_ = csvout.Write([]string{"parent_group", itemType})
 			for _, item := range outVars{
 				_ = csvout.Write([]string{groupPath, item})
 			}
