@@ -48,6 +48,7 @@ func init() {
 	rootCmd.PersistentFlags().StringVarP(&outputType, "output", "o", "text", "Output format for results, valid options are text, csv and json")
 }
 
+// TODO: this is rubbish. Probably need a print function per activity?
 func Printout(intro string, groupPath string, fmtString string, itemType string, outVars []string) {
 	switch outputType {
 		case "json":

@@ -24,6 +24,7 @@ var getGroupCmd = &cobra.Command{
 			}
 			log.Fatalf("Error: %o", err)
 		}
+
 		Printout("Found group:", group.FullPath, "", string(group.ParentID), nil)
 	},
 }
