@@ -58,7 +58,11 @@ func init() {
 
 	rootCmd.PersistentFlags().StringVarP(&gitlabToken, "token", "t", "", "A valid token for accessing the GitLab API")
 	_ = rootCmd.MarkPersistentFlagRequired("token")
-	_ = viper.BindPFlag("token", rootCmd.PersistentFlags().Lookup("token"))
+
+	// If token is in config file, set it!
+	if viper.IsSet("token") {
+		_ = rootCmd.PersistentFlags().Set("token", viper.GetString("token"))
+	}
 
 	rootCmd.PersistentFlags().StringVarP(&outputType, "output", "o", "text", "Output format for results, valid options are text, csv and json")
 }
