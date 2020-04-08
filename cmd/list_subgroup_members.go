@@ -55,26 +55,3 @@ func init() {
 	// is called directly, e.g.:
 	// groupsCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
 }
-
-func getMembersOfGroup(git *gitlab.Client, group *gitlab.Group) {
-	lgmOpts := &gitlab.ListGroupMembersOptions{}
-
-	groupMembers, _, err := git.Groups.ListGroupMembers(group.ID, lgmOpts)
-
-	if err != nil {
-		log.Fatalf("Error: %o", err)
-	}
-
-	if len(groupMembers) > 0 {
-		vars := []string{}
-
-		for _, gMember := range groupMembers {
-			vars = append(vars, gMember.Name)
-			vars = append(vars, gMember.Username)
-			vars = append(vars, levelToPerm(gMember.AccessLevel))
-		}
-
-		// TODO: this won't work - each item (name, username, level) will be a new line!
-		Printout("Members found for group: ", group.FullPath, "\t%s\t%s\t%s\n", "users", vars)
-	}
-}
