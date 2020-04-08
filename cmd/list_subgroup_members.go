@@ -7,8 +7,8 @@ import (
 	"strings"
 )
 
-var listMembersCmd = &cobra.Command{
-	Use:   "list-members",
+var listSubGroupMembersCmd = &cobra.Command{
+	Use:   "list-subgroup-members",
 	Short: "Lists members of subgroups",
 	Long: `Recurse through subgroups and lists all members specifically added to subgroups.
 Inherited users are not displayed.`,
@@ -43,7 +43,7 @@ Inherited users are not displayed.`,
 }
 
 func init() {
-	rootCmd.AddCommand(listMembersCmd)
+	rootCmd.AddCommand(listSubGroupMembersCmd)
 
 	// Here you will define your flags and configuration settings.
 
