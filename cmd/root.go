@@ -1,8 +1,6 @@
 package cmd
 
 import (
-	"encoding/csv"
-	"encoding/json"
 	"fmt"
 	"log"
 	"os"
@@ -65,41 +63,4 @@ func init() {
 	}
 
 	rootCmd.PersistentFlags().StringVarP(&outputType, "output", "o", "text", "Output format for results, valid options are text, csv and json")
-}
-
-// TODO: this is rubbish. Probably need a print function per activity?
-func Printout(intro string, groupPath string, fmtString string, itemType string, outVars []string) {
-	switch outputType {
-		case "json":
-			// Print JSON
-			// https://blog.golang.org/json-and-go
-			jsonout := json.NewEncoder(os.Stdout)
-			for _, item := range outVars {
-				_ = jsonout.Encode([]string{groupPath, item})
-			}
-
-		case "csv":
-			// Print CSV
-			// https://golangcode.com/write-data-to-a-csv-file/
-			csvout := csv.NewWriter(os.Stdout)
-			defer csvout.Flush()
-
-			_ = csvout.Write([]string{"parent_group", itemType})
-			for _, item := range outVars{
-				_ = csvout.Write([]string{groupPath, item})
-			}
-
-		default:
-			// Fix illiteracy, redirect to default
-			// Print plain text
-			tabs := tabwriter.NewWriter(os.Stdout, 0, 0, 3, ' ', 0)
-			defer tabs.Flush()
-			fmt.Println(intro, groupPath)
-
-			for _, item := range outVars {
-				_, _ = fmt.Fprintf(tabs, fmtString, item)
-			}
-
-			fmt.Println("")
-	}
 }
