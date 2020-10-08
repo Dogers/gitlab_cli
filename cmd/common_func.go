@@ -4,6 +4,7 @@ import (
 	"encoding/csv"
 	"encoding/json"
 	"fmt"
+	"github.com/xanzy/go-gitlab"
 	"log"
 	"os"
 	"text/tabwriter"
