@@ -14,7 +14,7 @@ var listSubGroupMembersCmd = &cobra.Command{
 Inherited users are not displayed.`,
 	Run: func(cmd *cobra.Command, args []string) {
 
-		gitlabClient := gitlab.NewClient(nil, gitlabToken)
+		gitlabClient, _ := gitlab.NewClient(gitlabToken)
 
 		lSGOpts := &gitlab.ListSubgroupsOptions{}
 		groups, _, err := gitlabClient.Groups.ListSubgroups(masterGID, lSGOpts)

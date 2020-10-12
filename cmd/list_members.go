@@ -13,7 +13,7 @@ var listMembersCmd = &cobra.Command{
 	Long:  `Lists all members of specific group`,
 	Run: func(cmd *cobra.Command, args []string) {
 
-		gitlabClient := gitlab.NewClient(nil, gitlabToken)
+		gitlabClient, _ := gitlab.NewClient(gitlabToken)
 
 		group, _, err := gitlabClient.Groups.GetGroup(masterGID)
 
