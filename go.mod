@@ -1,10 +1,7 @@
 module github.com/Dogers/gitlab_cli
 
-go 1.13
+go 1.15
 
 replace github.com/Dogers/gitlab_cli/cmd => ./cmd
 
-require (
-	github.com/spf13/cobra v0.0.7
-	github.com/xanzy/go-gitlab v0.38.1
-)
+require github.com/Dogers/gitlab_cli/cmd v0.0.0-00010101000000-000000000000
